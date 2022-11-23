@@ -1,27 +1,34 @@
-<?php
-    require '../config/database.php';
-    $db = new Conexion();
-    $con = $db->pdo;
 
-    $sql = $con->prepare("SELECT id, name, price FROM products WHERE active=1");
-    $sql->execute();
-    //fetch devuelve las filas de la consulta PDO::FETCH_ASSOC etiqueta por el nombre de la columna
-    $results = $sql->fetchAll(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>¡¡¡Gracias por su compra!!!</h2>
-<?php 
-    foreach ($results as $row) {
-        # code...
-    }
-?>
-</body>
-</html>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">            
+<?php       foreach ($resultados as $row) { ?>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <?php   
+                    $id = $row['id'];
+                    $categoria = $row['idcategory'];
+                    $nombre = $row['name'];
+                    $detalles = $row['details'];
+                    $precio = $row['price'];
+
+                    $imagen = "img/productos/".$categoria."/principal.jpg";
+
+                    if(!file_exists($imagen)){
+                        $imagen = "img/logos/no_imagen.jpg";
+                    }
+
+                    ?>
+                    <img width="140" height="180" src="<?php echo $imagen ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $nombre ?></h5>
+                        <p class="card-text"><?php echo number_format($precio, 2, '.', ',') ?></p>
+                        <div class="d-flex justify-content-between align-items-center">                        
+                            <a href="vistas/detalles.php?id=<?php echo $id; ?>&token=<?php echo hash_hmac('sha1', $id, KEY_TOKEN) ?>" class="btn btn-primary">Detalles</a>
+                            <a href="#" class="btn btn-success">Agregar</a>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+<?php       } ?>
+        </div>
+    </div>

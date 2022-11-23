@@ -1,64 +1,20 @@
 <?php
     require 'config/database.php';
+    require 'config/config1.php';
+    
     $db = new Conexion();
     $con = $db->pdo;
 
-    $sql = $con->prepare("SELECT id, name, price FROM products WHERE activo=1");
+    $sql = $con->prepare("SELECT * FROM products WHERE active=1 ORDER BY idCategory");
     $sql->execute();
     //fetch devuelve las filas de la consulta PDO::FETCH_ASSOC etiqueta por el nombre de la columna
-    $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $resultados = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/carrusel.css">
-    <link rel="stylesheet" href="css/inicio.css">
-    <title>Tienda Online</title>
-</head>
+<?php include "layouts/head.php"; ?>
+
 <body>
-<header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Tienda Urbana</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contáctanos</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Catálogo</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Zapatillas</a></li>
-                        <li><a class="dropdown-item" href="#">Casacas</a></li>
-                        <li><a class="dropdown-item" href="#">Pantalones</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="carrito.php">Carrito</a>
-                </li>
-                <li>
-                    <a href="#" class="iniciar-sesion"><img src="./img/perfil.png" alt="" width="30px" heigth="60px"></a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> 
-        </div>
-    </div>
-  </nav>
-</header>
+<?php include "layouts/navbar.php"; ?>
 <main>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -142,8 +98,13 @@
         </div><!-- /.row -->
 
 
+
+
     <!-- START THE FEATURETTES -->
 
+        <?php 
+        include 'vistas/catalogo.php';
+        ?>
         <hr class="featurette-divider">
 
         <div class="row featurette">
@@ -188,11 +149,8 @@
 
 
   <!-- FOOTER -->
-    <footer class="container">
-        <p class="float-end"><a href="#">Back to top</a></p>
-        <p>&copy; 2017–2022 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
+    <?php include 'layouts/footer.php'; ?>
 </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    
 </body>
 </html>
