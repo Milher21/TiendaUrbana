@@ -9,12 +9,15 @@
     $sql->execute();
     //fetch devuelve las filas de la consulta PDO::FETCH_ASSOC etiqueta por el nombre de la columna
     $resultados = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    #session_destroy();
 ?>
 
 <?php include "layouts/head.php"; ?>
 
 <body>
-<?php include "layouts/navbar.php"; ?>
+<?php include "layouts/navbar.php"; 
+    ?>
 <main>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -101,10 +104,8 @@
 
 
     <!-- START THE FEATURETTES -->
+        <hr class="featurette-divider">
 
-        <?php 
-        include 'vistas/catalogo.php';
-        ?>
         <hr class="featurette-divider">
 
         <div class="row featurette">

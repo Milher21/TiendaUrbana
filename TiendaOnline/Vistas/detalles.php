@@ -6,7 +6,7 @@ $id=$_GET['id_producto'];
 echo $id;
 $detalle =new Usuario();
 $detalle->detalles($id);
-print_r($_SESSION);
+
 
 ?>
 
@@ -42,11 +42,11 @@ print_r($_SESSION);
       
                 <a href="checkuot.php" class="iniciar-sesion">
                     <img src="../img/carrito-de-compras.png" alt="" width="60px"  >
-<span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span>
+                    <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span>
                 </a>  
     
             </div>
-            </div>
+        </div>
      
         <div class="nav">
             <label for="check" class="mostrar-menu">
@@ -102,7 +102,7 @@ print_r($_SESSION);
 	
                     <script>
         function addProducto(id) {
-				var url = 'carrito1.php';
+				var url = 'agregar.php';
 				var formData = new FormData();
 				formData.append('id', id);
 				

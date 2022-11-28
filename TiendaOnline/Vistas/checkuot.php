@@ -44,10 +44,7 @@ if($productos != null){
 	<script src="js/jquery.flexslider.js"></script>
     <script src="js/jquery-3.2.1.js"></script>
 	<script src="js/script.js"></script>
-	<script type="text/javascript" charset="utf-8">
-        
-</script>
-
+</head>
 <body>
     <header>
         <div class="superior">
@@ -56,10 +53,13 @@ if($productos != null){
             </div>
             
             <div class="cont-icon"> 
-      
-                <a href="checkuot.php" class="iniciar-sesion">
-                    <img src="../img/carrito-de-compras.png" alt="" width="60px"  >
+                 <a href="Login.php" class="iniciar-sesion">
+                    <img src="../img/perfil.png" alt="" width="60px">
+                </a> 
 
+				<a href="checkuot.php" class="carrito">
+                    <img src="../img/carrito-de-compras.png" alt="" width="60px">
+                    <span id="num_cart" class="badge bg-secondary"><?php echo $num_cart; ?></span>
                 </a>  
     
             </div>
@@ -82,8 +82,6 @@ if($productos != null){
             </nav>
         </div>
     </header>
-    <body>
-
         <h2 class="pmv">DETALLES</h2>
         <br>
         <main>
@@ -98,46 +96,52 @@ if($productos != null){
 								<th></th>
 							</tr>
 						</thead>
+						<tbody>
 						<?php if($lista_carrito == null){
 							echo '<tr><td colspan= "5" class="text-center"><b>lista vacia</b><td></tr>';
 						} else {
 							$total = 0;
-foreach ($lista_carrito as $productos) {
-    $_id = $productos['id_producto'];
-    $_nombre =$productos['nombre_producto'];
-    $_precio =$productos['precio'];
-    $_subtotal =$cantidad*$_precio;
-	$total +=$_subtotal;
-	?>
+							foreach ($lista_carrito as $productos) {
+							    $_id = $productos['id_producto'];
+							    $_nombre =$productos['nombre_producto'];
+							    $_precio =$productos['precio'];
+							    $cantidad = $productos['cantidad'];
+							    $_subtotal =$cantidad*$_precio;
+								$total +=$_subtotal;
+								?>
 							
 						<tr>
-							<td><?php echo $_nombre; ?></td>
-							<td><?php echo $_precio; ?></td>
-							<td><?php echo $cantidad; ?></td>
-							<td><?php echo $_subtotal; ?></td>
-						
-						<?php } ?>
-						</tr>
+	                        <td><?php echo $_nombre; ?></td>
+	                        <td><?php echo $_precio; ?></td>
+	                        <td>
+	                            <input type="number" name="" min="1" max="20" step="1" value="<?php echo $cantidad; ?>" size="5" id="cantidad_<?php echo $_id; ?>" onchange="actualizarCantidad(this.value, <?php echo $_id; ?>)">
+	                        </td>
+	                        <td>
+	                            <div id="subtotal_<?php echo $_id; ?>" name="subtotal[]">
+	                            	<?php echo $_subtotal; ?>                               
+	                            </div>
+	                        </td>
+	                        <td>
+	                            <a href="#" id="eliminar" class="btn btn-warning btn-sm" data-bs-id="<?php echo $_id;?>" data-bs-toggle="modal" data-bs-target="#eliminaModal">Eliminar</a>
+	                        </td>                        
+                    	</tr>
+                    	<?php   } ?>
 						<tr>
-						<td colspan= "3"></td>
-						<td colspan= "2">
-							<p class="h3" id="total"><?php echo'Total','  ','s/.  ' ,number_format($total,2,'.','.');
-							// $_subtotal. number_format($total, 2, '.' , '.');
-							?></p>
-						</td>
+							<td colspan= "3"></td>
+							<td colspan= "2">
+								<p class="h3" id="total"><?php echo'Total'.'  '.'s/.  '.number_format($total,2,'.','.'); ?></p>
+							</td>
 						</tr>
 						
-						</tr>
 						</tbody> <?php } ?>
 					</table>
 				</div>
 				
 				<div class="row">
 					<div class="col-md-5 offset-md-7 d-grid gap-2">
-						<button class="btn btn-primary btn-lg">REALIZAR PAGO</button>
+						<a href="pago.php"class="btn btn-primary btn-lg">REALIZAR PAGO</a>
 				</div>
 							</div>
-		</main>
 		
 		<div class="modal fade" id="eliminaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-sm">
@@ -171,11 +175,11 @@ foreach ($lista_carrito as $productos) {
 				botonElimina.value = recipient
 			})
 			
-			function actualizaCantidad(cantidad, id) {
+			function actualizarCantidad(cantidad, id) {
 				
 				if(!isNaN(cantidad) && cantidad > 0){
 					
-					let url = 'clases/actualizar_carrito.php';
+					let url = 'carrito1.php';
 					let formData = new FormData();
 					formData.append('action', 'agregar');
 					formData.append('id', id);
@@ -211,7 +215,7 @@ foreach ($lista_carrito as $productos) {
 				let botonElimina = document.getElementById('btn-elimina')
 				let recipient = botonElimina.value
 				
-				let url = 'clases/actualizar_carrito.php';
+				let url = 'carrito1.php';
 				let formData = new FormData();
 				formData.append('action', 'eliminar');
 				formData.append('id', recipient);
@@ -226,7 +230,6 @@ foreach ($lista_carrito as $productos) {
 						location.reload();
 					}
 				})
-				$('#eliminaModal').modal('hide')
 			}
 		</script>
 

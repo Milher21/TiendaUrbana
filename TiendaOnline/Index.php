@@ -120,10 +120,10 @@ $Listar->Listar_productos();
                                 echo 'S/.', $row['precio'] ?></p>
                                 <div class="botones">
                                     <div class="btn-det">                                      
-                                        <a href="#" class="btn_detalles">Detalles</a>
+                                        <a href="Vistas/detalles.php?id_producto=<?php echo $row ['id_producto'];?>" class="btn_detalles">Detalles</a>
                                     </div>
                                     <div class="btn_car">
-                                        <button class="btn_agregar" type="button" onclick="addProducto(<?php echo $row ['id_producto']; ?>)">AGREGAR </button>
+                                        <button class="btn_agregar" type="button" onclick="addProducto(<?php echo $row['id_producto']; ?>)">AGREGAR </button>
                                     </div>
                                     
                                 </div>
@@ -132,6 +132,28 @@ $Listar->Listar_productos();
                         <?php }?>  
                     </div>
         </main>
+
+        <script>
+            function addProducto(id) {
+                var url = 'Vistas/agregar.php';
+                var formData = new FormData();
+                formData.append('id', id);
+
+                fetch(url, {
+                    method: 'post',
+                    body: formData,
+                    mode: 'cors',
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        let elemento = document.getElementById("num_cart")
+                        elemento.innerHTML = data.numero;
+                    }
+                })
+            }
+        </script>
+
+
         <h2 class="categorias_pro">NUESTRAS COLECCIONES</h2>
         <div class="colecciones">
 

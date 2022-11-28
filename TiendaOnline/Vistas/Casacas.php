@@ -104,7 +104,7 @@ $Listar->Listar_Casacas();
         </main>
         <script>
             function addProducto(id) {
-                var url = 'carrito1.php';
+                var url = 'agregar.php';
                 var formData = new FormData();
                 formData.append('id', id);
 

@@ -1,0 +1,2 @@
+user: sb-djoa4722275366@personal.example.com
+pass: Jdt_2;W<

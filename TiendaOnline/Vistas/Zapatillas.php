@@ -95,7 +95,7 @@ $Listar->Listar_Zapatillas();
                                     </div>
                                     <!------>
                                     <div class="btn_car"> 
-                                        <button class="btn_agregar" type="button" onclick="addProducto(<?php echo $row ['id_producto']; ?>)">AGREGAR </button>
+                                        <button class="btn_agregar" type="button" onclick="addProducto(<?php echo $row['id_producto']; ?>)">AGREGAR </button>
                                     </div>
                                    <!------>
                                     
@@ -108,7 +108,7 @@ $Listar->Listar_Zapatillas();
 	
     <script>
 function addProducto(id) {
-var url = 'carrito1.php';
+var url = 'agregar.php';
 var formData = new FormData();
 formData.append('id', id);
 
